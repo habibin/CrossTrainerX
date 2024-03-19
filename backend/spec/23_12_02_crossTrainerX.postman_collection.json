@@ -1,0 +1,7033 @@
+{
+	"info": {
+		"_postman_id": "93c43850-e4a2-43f4-a987-d2a119287e71",
+		"name": "crossTrainerX",
+		"description": "This collection tests the API specification given for Assignment 3.\nIn order to run this collection, you need an environment which has the following 3 environment variables pre-defined:\n\napp_url\n- Set this to your app. E.g., when running locally set it to http://localhost:8080. When running the app on GCP. set it to https://myapp.appsport.com\n\ninvalid_boat_id\n- Set it to a value that's not an ID of any boat in your project. I have set it to 1 and that should work for you as well.\n- \n\ninvalid_slip_id\n- Set it to a value that's not an ID of any slip in your porject. I have set it to 1 and that should work for you as well.\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10725765"
+	},
+	"item": [
+		{
+			"name": "add strength_exercise1 (user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"strength_exercise_id1\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Deadlift\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lift a barbell from the ground to a standing position\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Back\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"barbell\");",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(6);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(5);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Deadlift\",\r\n  \"type\": \"Strength\",\r\n  \"secondaryType\": \"Legs\",\r\n  \"description\": \"Lift a barbell from the ground to a standing position\",\r\n  \"muscleGroup\": \"Back\",\r\n  \"equipment\": \"barbell\",\r\n  \"reps\": 6,\r\n  \"sets\": 5,\r\n  \"weight\": 120,\r\n  \"weightClass\": 3,\r\n  \"rest\": 120\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add strength_exercise2 (user2) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"strength_exercise_id2\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Squat\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lower your body as if you were sitting in a chair, then stand back up\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Legs\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"dumbbells\");",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(10);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(50);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(60);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id2\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Squat\",\r\n  \"type\": \"Strength\",\r\n  \"secondaryType\": \"Legs\",\r\n  \"description\": \"Lower your body as if you were sitting in a chair, then stand back up\",\r\n  \"muscleGroup\": \"Legs\",\r\n  \"equipment\": \"dumbbells\",\r\n  \"reps\": 10,\r\n  \"sets\": 3,\r\n  \"weight\": 50,\r\n  \"weightClass\": 2,\r\n  \"rest\": 60\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add strength_exercise3 (user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"strength_exercise_id3\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Preacher curls\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryType\"]).to.eq(\"Pull\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Grab the bar in front of you with your elbows resting on the bench and then perform a curl keeping your elbows in place\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Biceps\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"Barbell, bench\");",
+							"    pm.expect(pm.response.json()[\"weightClass\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(12);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(40);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(60);",
+							"    ",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id3\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Preacher curls\",\r\n    \"type\": \"Strength\",\r\n    \"secondaryType\": \"Pull\",\r\n    \"description\": \"Grab the bar in front of you with your elbows resting on the bench and then perform a curl keeping your elbows in place\",\r\n    \"muscleGroup\": \"Biceps\",\r\n    \"equipment\": \"Barbell, bench\",\r\n    \"weightClass\": 3,\r\n    \"reps\": 12,\r\n    \"sets\": 3,\r\n    \"weight\": 40,\r\n    \"rest\": 60\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add strength_exercise4 (user2) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"strength_exercise_id4\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Cable rows\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryType\"]).to.eq(\"Pull\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Grab the cable with your arms stretched out in front of you, pull it back until your elbows are behind you and then release\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Back\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"Cable machine\");",
+							"    pm.expect(pm.response.json()[\"weightClass\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(12);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(40);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(60);",
+							"    ",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id4\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cable rows\",\r\n    \"type\": \"Strength\",\r\n    \"secondaryType\": \"Pull\",\r\n    \"description\": \"Grab the cable with your arms stretched out in front of you, pull it back until your elbows are behind you and then release\",\r\n    \"muscleGroup\": \"Back\",\r\n    \"equipment\": \"Cable machine\",\r\n    \"weightClass\": 3,\r\n    \"reps\": 12,\r\n    \"sets\": 3,\r\n    \"weight\": 40,\r\n    \"rest\": 60\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add strength_exercise5 (user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"strength_exercise_id5\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Squat\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lower your body as if you were sitting in a chair, then stand back up\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Legs\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"dumbbells\");",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(10);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(50);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(60);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id5\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Squat\",\r\n  \"type\": \"Strength\",\r\n  \"secondaryType\": \"Legs\",\r\n  \"description\": \"Lower your body as if you were sitting in a chair, then stand back up\",\r\n  \"muscleGroup\": \"Legs\",\r\n  \"equipment\": \"dumbbells\",\r\n  \"reps\": 10,\r\n  \"sets\": 3,\r\n  \"weight\": 50,\r\n  \"weightClass\": 2,\r\n  \"rest\": 60\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add cardio_exercise1 (user4) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"cardio_exercise_id1\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Running\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Cardio\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Outdoor jogging or running\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(45);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(5);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"cardio_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Running\",\r\n  \"type\": \"Cardio\",\r\n  \"secondaryType\": \"Running\",\r\n  \"description\": \"Outdoor jogging or running\",\r\n  \"duration\": 45,\r\n  \"distance\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add flexibility_exercise1 (user6) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"flexibility_exercise_id1\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Forward Bend\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Flexibility\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Bend forward from the waist, reaching toward the toes\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(20);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"flexibility_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Forward Bend\",\r\n  \"type\": \"Flexibility\",\r\n  \"secondaryType\": \"Yoga\",\r\n  \"description\": \"Bend forward from the waist, reaching toward the toes\",\r\n  \"duration\": 20,\r\n  \"difficulty\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add exercise with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The exercise request data is invalid\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add exercise with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add exercise with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(2);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises (user2) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(2);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get strength_exercise1 with 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"        pm.expect(pm.response.json()[\"id\"]).to.eq(pm.environment.get(\"strength_exercise_id1\"));",
+							"",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Deadlift\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryType\"]).to.eq(\"Legs\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lift a barbell from the ground to a standing position\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Back\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"barbell\");",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(6);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(5);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()[\"userId\"]);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cardio_exercise1 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]).to.eq(pm.environment.get(\"cardio_exercise_id1\"));",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Running\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Cardio\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Outdoor jogging or running\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(45);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(5);",
+							"});",
+							"    pm.expect(pm.response.json()[\"userId\"]);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"cardio_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get flexibility_exercise1 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]).to.eq(pm.environment.get(\"flexibility_exercise_id1\"));",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Forward Bend\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Flexibility\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Bend forward from the waist, reaching toward the toes\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(20);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"flexibility_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{flexibility_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{flexibility_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get exercise with wrong user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get exercise with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No exercise with this exerciseId exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{invalid_exercise_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{invalid_exercise_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get exercise with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get exercise with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout1 (user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"workout_id1\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse).length).to.eq(5);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(jsonResponse[\"dateCompleted\"]).to.eq(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}]\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout with wrong user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: one or more of these excercises does not belong to the current user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id2}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout with invalid exercises 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: one or more of these excercises does not belong to the current user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{invalid_exercise_id}}, {{strength_exercise_id2}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current workout (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"current_workout_user1_id\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]).length).to.eq(1);",
+							"    pm.expect(jsonResponse[\"exercises\"]).to.have.property(pm.environment.get(\"strength_exercise_id1\"));",
+							"    pm.expect(jsonResponse[\"dateCompleted\"]).to.eq(null);",
+							"    pm.expect(jsonResponse[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"current_workout_user1_id\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current workout no valid workout (user2) 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// pm.test(\"404 status code\", function () {",
+							"//     pm.response.to.have.status(404);",
+							"// });",
+							"",
+							"// pm.test(\"404 error message\", function () {",
+							"//      pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No uncompleted workouts exist for this user.\");",
+							"// });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current workout with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current workout with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch current workout 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put current workout 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add current workout 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete current workout 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get workout1 with 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]).to.eq(pm.environment.get(\"workout_id1\"));",
+							"    pm.expect(pm.response.json()[\"userId\"]).to.eq(pm.environment.get(\"user_id1\"));",
+							"",
+							"    pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"name\"]).to.eq(\"Deadlift\");",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"description\"]).to.eq(\"Lift a barbell from the ground to a standing position\");",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"muscleGroup\"]).to.eq(\"Back\");",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"equipment\"]).to.eq(\"barbell\");",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"reps\"]).to.eq(6);",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"sets\"]).to.eq(5);",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"weight\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()['exercises'][pm.environment.get(\"strength_exercise_id1\")][\"rest\"]).to.eq(120);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"workout_id1\")}`);",
+							"});",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get workout with wrong user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this workout does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get workout with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No workout with this id exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{invalid_workout_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{invalid_workout_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get workout with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get workout with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all workouts (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(1);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all workouts with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all workouts with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "complete current workout (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]).length).to.eq(1);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(pm.response.json()[\"dateCompleted\"]).to.eq(\"2023-11-06T19:43:23.243Z\");",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"current_workout_user1_id\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{current_workout_user1_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{current_workout_user1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get current workout (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]));",
+							"    pm.expect(jsonResponse[\"id\"]).to.not.equal(pm.environment.get(\"current_workout_user1_id\"));",
+							"    pm.expect(jsonResponse[\"dateCompleted\"]).to.eq(null);",
+							"    pm.expect(jsonResponse[\"self\"]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/current_workout",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"current_workout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user8 (strength) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"email\"]).to.eq(\"user8@mock.com\");",
+							"    pm.expect(pm.response.json()[\"avatarId\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"firstName\"]).to.eq(\"FirstName\");",
+							"    pm.expect(pm.response.json()[\"lastName\"]).to.eq(\"LastName\");",
+							"    pm.expect(pm.response.json()[\"city\"]).to.eq(\"City\");",
+							"    pm.expect(pm.response.json()[\"state\"]).to.eq(\"State\");",
+							"    pm.expect(pm.response.json()[\"gender\"]).to.eq(\"Gender\");",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(150);",
+							"    pm.expect(pm.response.json()[\"height\"]).to.eq(70);",
+							"    pm.expect(pm.response.json()[\"fitnessTrack\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryTrack\"]).to.eq(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null,\r\n  \"experience\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises (user8 strength) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(25);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user8 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises user8 empty200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user8 (cardio) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"email\"]).to.eq(\"user8@mock.com\");",
+							"    pm.expect(pm.response.json()[\"avatarId\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"firstName\"]).to.eq(\"FirstName\");",
+							"    pm.expect(pm.response.json()[\"lastName\"]).to.eq(\"LastName\");",
+							"    pm.expect(pm.response.json()[\"city\"]).to.eq(\"City\");",
+							"    pm.expect(pm.response.json()[\"state\"]).to.eq(\"State\");",
+							"    pm.expect(pm.response.json()[\"gender\"]).to.eq(\"Gender\");",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(150);",
+							"    pm.expect(pm.response.json()[\"height\"]).to.eq(70);",
+							"    pm.expect(pm.response.json()[\"fitnessTrack\"]).to.eq(\"Cardio\");",
+							"    pm.expect(pm.response.json()[\"secondaryTrack\"]).to.eq(\"Running\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Cardio\",\r\n  \"secondaryTrack\": \"Running\",\r\n  \"experience\": 1\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises (user8 cardio) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(1);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user8 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises user8 empty 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user8 (flexibility) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"email\"]).to.eq(\"user8@mock.com\");",
+							"    pm.expect(pm.response.json()[\"avatarId\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"firstName\"]).to.eq(\"FirstName\");",
+							"    pm.expect(pm.response.json()[\"lastName\"]).to.eq(\"LastName\");",
+							"    pm.expect(pm.response.json()[\"city\"]).to.eq(\"City\");",
+							"    pm.expect(pm.response.json()[\"state\"]).to.eq(\"State\");",
+							"    pm.expect(pm.response.json()[\"gender\"]).to.eq(\"Gender\");",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(150);",
+							"    pm.expect(pm.response.json()[\"height\"]).to.eq(70);",
+							"    pm.expect(pm.response.json()[\"fitnessTrack\"]).to.eq(\"Flexibility\");",
+							"    pm.expect(pm.response.json()[\"secondaryTrack\"]).to.eq(\"Yoga\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Flexibility\",\r\n  \"secondaryTrack\": \"Yoga\",\r\n  \"experience\": 3\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add flexibility_exercise2 (user8) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"flexibility_exercise_id2\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Neck Stretch\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Flexibility\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Gently tilt your head to each side to stretch the neck muscles\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(15);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"flexibility_exercise_id2\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Neck Stretch\",\r\n  \"type\": \"Flexibility\",\r\n  \"secondaryType\": \"Stretching\",\r\n  \"description\": \"Gently tilt your head to each side to stretch the neck muscles\",\r\n  \"duration\": 15,\r\n  \"difficulty\": 1\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises (user8 flexibility) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The user request data is invalid\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user1@mock.com\",\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Cardio\",\r\n  \"secondaryTrack\": \"Running\",\r\n  \"experience\": 1\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user1@mock.com\",\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Cardio\",\r\n  \"secondaryTrack\": \"Running\",\r\n  \"experience\": 1\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user1@mock.com\",\r\n  \"firstName\": \"FirstName\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Cardio\",\r\n  \"secondaryTrack\": \"Running\",\r\n  \"experience\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(2);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user1 with 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"email\"]).to.eq(\"user1@mock.com\");",
+							"    pm.expect(pm.response.json()[\"avatarId\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"firstName\"]).to.eq(\"firstName1\");",
+							"    pm.expect(pm.response.json()[\"lastName\"]).to.eq(\"lastName1\");",
+							"    pm.expect(pm.response.json()[\"city\"]).to.eq(\"City1\");",
+							"    pm.expect(pm.response.json()[\"state\"]).to.eq(\"State1\");",
+							"    pm.expect(pm.response.json()[\"age\"]).to.eq(25);",
+							"    pm.expect(pm.response.json()[\"gender\"]).to.eq(\"Male\");",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(160);",
+							"    pm.expect(pm.response.json()[\"height\"]).to.eq(70);",
+							"    pm.expect(pm.response.json()[\"fitnessTrack\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryTrack\"]).to.eq(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user with wrong user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this user is not the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No user with this id exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users/{{invalid_user_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{invalid_user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put all users 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch all users 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all users 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user8 (strength) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"email\"]).to.eq(\"user8updated@mock.com\");",
+							"    pm.expect(pm.response.json()[\"avatarId\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"firstName\"]).to.eq(\"FirstNameupdated\");",
+							"    pm.expect(pm.response.json()[\"lastName\"]).to.eq(\"LastName\");",
+							"    pm.expect(pm.response.json()[\"city\"]).to.eq(\"City\");",
+							"    pm.expect(pm.response.json()[\"state\"]).to.eq(\"State\");",
+							"    pm.expect(pm.response.json()[\"age\"]).to.eq(10);",
+							"    pm.expect(pm.response.json()[\"gender\"]).to.eq(\"Gender\");",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(150);",
+							"    pm.expect(pm.response.json()[\"height\"]).to.eq(70);",
+							"    pm.expect(pm.response.json()[\"fitnessTrack\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"secondaryTrack\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/users/${pm.environment.get(\"user_id8\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8updated@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The user request data is invalid\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user with invalid user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this user is not the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8updated@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user with invalid user id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No user with this id exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8updated@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{invalid_user_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{invalid_user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user with invalid response MIME type 406 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8updated@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user with invalid MIME type 415 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user8updated@mock.com\",\r\n  \"avatarId\": 2,\r\n  \"firstName\": \"FirstNameupdated\",\r\n  \"lastName\": \"LastName\",\r\n  \"city\": \"City\",\r\n  \"state\": \"State\",\r\n  \"age\": 10,\r\n  \"gender\": \"Gender\",\r\n  \"weight\": 150,\r\n  \"height\": 70,\r\n  \"fitnessTrack\": \"Strength\",\r\n  \"secondaryTrack\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user8 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all exercises user8 empty 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No user with this id exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt8}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users/{{user_id8}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{user_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add workout3 (user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"workout_id3\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse).length).to.eq(5);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id3\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(jsonResponse[\"dateCompleted\"]).to.eq(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}]\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit workout3 only exercises (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]).length).to.eq(1);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id5\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(pm.response.json()[\"dateCompleted\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"workout_id3\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id5}}]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit workout3 only dateCompleted (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]).length).to.eq(1);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id5\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(pm.response.json()[\"dateCompleted\"]).to.eq(\"2023-11-06T19:43:23.243Z\");",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"workout_id3\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit workout3 all (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(Object.keys(jsonResponse[\"exercises\"]).length).to.eq(3);",
+							"    ",
+							"    pm.expect(jsonResponse).to.have.property(\"exercises\");",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id3\")}`);",
+							"    pm.expect(jsonResponse['exercises']).to.have.property(`${pm.environment.get(\"strength_exercise_id5\")}`);",
+							"    pm.expect(jsonResponse).to.have.property(\"dateCompleted\");",
+							"    pm.expect(pm.response.json()[\"dateCompleted\"]).to.eq(\"2023-11-06T19:43:23.243Z\");",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/workouts/${pm.environment.get(\"workout_id3\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}, {{strength_exercise_id5}}]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update workout with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object contains no valid attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update workout with invalid exercises 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: one or more of these excercises does not belong to the current user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id2}}, {{strength_exercise_id3}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update workout with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update workout with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exercises\": [{{strength_exercise_id1}}, {{strength_exercise_id3}}],\r\n  \"dateCompleted\": \"2023-11-06T19:43:23.243Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put strength_exercise1 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put all exercises 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch all exercises 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put workout1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put all workouts 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all workouts 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete workout_id1 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify workout_id1 no longer exists 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No workout with this id exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete workout_id3 with invalid user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete workout with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No workout with this id exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{invalid_workout_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{invalid_workout_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete workout with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete exercise with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete workout_id3 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit strength_exercise1 (user1) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Deadlifter\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Strength\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lift a barbell from the ground to a standing position\");",
+							"    pm.expect(pm.response.json()[\"muscleGroup\"]).to.eq(\"Back\");",
+							"    pm.expect(pm.response.json()[\"equipment\"]).to.eq(\"barbell\");",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(7);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(8);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(121);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(121);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"strength_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Deadlifter\",\r\n  \"type\": \"Strength\",\r\n  \"secondaryType\": \"Legs\",\r\n  \"description\": \"Lift a barbell from the ground to a standing position\",\r\n  \"muscleGroup\": \"Back\",\r\n  \"equipment\": \"barbell\",\r\n  \"reps\": 7,\r\n  \"sets\": 8,\r\n  \"weight\": 121,\r\n  \"weightClass\": 3,\r\n  \"rest\": 121\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit cardio_exercise1 (user4) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Runninging\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Cardio\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Indoor jogging or running\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(60);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(6);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"cardio_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Runninging\",\r\n  \"type\": \"Cardio\",\r\n  \"secondaryType\": \"Running\",\r\n  \"description\": \"Indoor jogging or running\",\r\n  \"duration\": 60,\r\n  \"distance\": 6\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit flexibility_exercise1 (user6) 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"name\"]).to.eq(\"Neck Stretcher\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(\"Flexibility\");",
+							"    pm.expect(pm.response.json()[\"description\"]).to.eq(\"Gently tilt your head to each side to stretch the neck muscles\");",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(50);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/exercises/${pm.environment.get(\"flexibility_exercise_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Neck Stretcher\",\r\n  \"type\": \"Flexibility\",\r\n  \"secondaryType\": \"Stretching\",\r\n  \"description\": \"Gently tilt your head to each side to stretch the neck muscles\",\r\n  \"duration\": 50,\r\n  \"difficulty\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{flexibility_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{flexibility_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit exercise with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The exercise request data is invalid\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit exercise with invalid user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Deadlifter\",\r\n  \"type\": \"Strength\",\r\n  \"secondaryType\": \"Legs\",\r\n  \"description\": \"Lift a barbell from the ground to a standing position\",\r\n  \"muscleGroup\": \"Back\",\r\n  \"equipment\": \"barbell\",\r\n  \"reps\": 7,\r\n  \"sets\": 8,\r\n  \"weight\": 121,\r\n  \"weightClass\": 3,\r\n  \"rest\": 121\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit exercise with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No exercise with this id exists\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{invalid_exercise_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{invalid_exercise_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit exercise with invalid response MIME type 406 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add exercise with invalid MIME type 415 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey1 (strength - user1) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"survey_id1\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]);",
+							"    pm.expect(pm.response.json()[\"exerciseId\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"datetime\"]);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/surveys/${pm.environment.get(\"survey_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 1,\r\n  \"reps\": 2,\r\n  \"weight\": 3,\r\n  \"sets\": 2,\r\n  \"rest\": 2\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey2 (cardio - user4) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"survey_id2\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]);",
+							"    pm.expect(pm.response.json()[\"exerciseId\"]).to.eq(91);",
+							"    pm.expect(pm.response.json()[\"datetime\"]);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/surveys/${pm.environment.get(\"survey_id2\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 91,\r\n  \"duration\": 2,\r\n  \"distance\": 3\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey3 (flexibility - user6) 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"survey_id3\", pm.response.json()[\"id\"]);",
+							"",
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"id\"]);",
+							"    pm.expect(pm.response.json()[\"exerciseId\"]).to.eq(93);",
+							"    pm.expect(pm.response.json()[\"datetime\"]);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/surveys/${pm.environment.get(\"survey_id3\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 93,\r\n  \"difficulty\": 1,\r\n  \"duration\": 3\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add strength survey with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 1,\r\n  \"reps\": 1,\r\n  \"weight\": 3,\r\n  \"sets\": 2\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add cardio survey with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 1,\r\n  \"duration\": 2\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add flexibility survey with missing attributes 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 1,\r\n  \"difficulty\": 1\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey with invalid exercise id 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": 1,\r\n  \"reps\": 2,\r\n  \"weight\": 3,\r\n  \"sets\": 2,\r\n  \"rest\": 2\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey with invalid exercise id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No exercise with this id exists\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"exerciseId\": {{invalid_exercise_id}},\r\n  \"reps\": 2,\r\n  \"weight\": 3,\r\n  \"sets\": 2,\r\n  \"rest\": 2\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add survey with invalid response MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get survey1 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"exerciseId\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"userId\"]).to.eq(`${pm.environment.get(\"user_id1\")}`);",
+							"    pm.expect(pm.response.json()[\"datetime\"]);",
+							"    pm.expect(pm.response.json()[\"reps\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"weight\"]).to.eq(3);",
+							"    pm.expect(pm.response.json()[\"sets\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"rest\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"difficulty\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"duration\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"distance\"]).to.eq(null);",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(`${pm.environment.get(\"app_url\")}/surveys/${pm.environment.get(\"survey_id1\")}`);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{survey_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{survey_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get survey with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No survey with this id exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{invalid_survey_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{invalid_survey_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get survey with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get survey with invalid response MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all surveys 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(2);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get surveys with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get surveys with invalid response MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "audio/aac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bench Press\",\r\n  \"type\": \"Strength Training\",\r\n  \"description\": \"A reclined barbell exercise\",\r\n  \"muscleGroup\": \"chest shoulders arms\",\r\n  \"equipment\": \"barbell\",\r\n  \"rating\": 5\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app_url}}/surveys",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey1 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{survey_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{survey_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey2 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{survey_id2}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{survey_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey with invalid user 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this survey does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{survey_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{survey_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No survey with this id exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{invalid_workout_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{invalid_workout_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/workouts/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"workouts",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{workout_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{workout_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete survey3 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/surveys/{{survey_id3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"surveys",
+						"{{survey_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all exercises 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"pm.test(\"405 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"This method is not allowed on this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete strength_exercise1 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify strength_exercise1 no longer exists 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No exercise with this exerciseId exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete exercise with invalid id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"404 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"No exercise with this exerciseId exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete strength_exercise2 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id2}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete cardio_exercise1 with invalid user2 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete cardio_exercise1 with invalid user2 401 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete cardio_exercise1 with invalid user1 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Access denied: this exercise does not belong to the current user\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete cardio_exercise1 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt4}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{cardio_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{cardio_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete flexibility_exercise1 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt6}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{flexibility_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{flexibility_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete exercise with invalid response MIME type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 Not Acceptable\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"406 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The requested response MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete exercise with invalid MIME type 415",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 Unsupported Media Type\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"",
+							"pm.test(\"415 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request MIME type is not supported by this endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "audio/aac",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/exercises/{{strength_exercise_id1}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"exercises",
+						"{{strength_exercise_id1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt1}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
